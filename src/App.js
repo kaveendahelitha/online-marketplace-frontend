@@ -5,6 +5,7 @@ import ProductList from './pages/ProductList';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import UserProfile from './pages/UserProfile';
 //import Navbar from './components/Navbar';
 //import Footer from './components/Footer';
 import AdminDashboard from './pages/AdminDashboard';
@@ -24,6 +25,7 @@ const App = () => {
              <Route path="/admin" element={<AdminDashboard />} />
              <Route path="/user" element={<UserDashboard />} />
              <Route path="/products-details" element={<ProductDetails/>} />
+             <Route path="/userprofile" element={<UserProfile />} />
         </Routes>
       </div>
     </Router>
