@@ -8,11 +8,7 @@ function UserProfile() {
   return (
     <>
     <Navbar/>
-    
-    
-    
-
-
+  
     <div className="bg-white py-24 sm:py-32">
       <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
           USER PROFILE

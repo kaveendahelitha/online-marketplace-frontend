@@ -12,23 +12,34 @@ import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
 import ProductDetails from './pages/ProductDetails';
 
+import { Provider } from 'react-redux';
+import store from './store';
+
+import Layout from './hocs/Layout';
+
 const App = () => {
   return (
-    <Router>
-      <div>
-        <Routes>
-             <Route path="/" element={<Home />}/>
-             <Route path="/products-list" element={<ProductList />} />
-             <Route path="/cart" element={<Cart />} />
-             <Route path="/login" element={<Login />} />
-             <Route path="/signup" element={<SignUp />} />
-             <Route path="/admin" element={<AdminDashboard />} />
-             <Route path="/user" element={<UserDashboard />} />
-             <Route path="/products-details" element={<ProductDetails/>} />
-             <Route path="/userprofile" element={<UserProfile />} />
-        </Routes>
-      </div>
-    </Router>
+    <Provider store={store}>
+       <Router>
+        <Layout>
+         <div>
+           <Routes>
+                <Route path="/" element={<Home />}/>
+                <Route path="/products-list" element={<ProductList />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/user" element={<UserDashboard />} />
+                <Route path="/products-details" element={<ProductDetails/>} />
+                {/*<Route path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm/>} />
+                <Route path='/activate/:uid/:token' celement={<Activate/>} /> */}
+                <Route path="/userprofile" element={<UserProfile />} />
+           </Routes>
+         </div>
+         </Layout>
+       </Router>
+    </Provider>
   );
 };
 
