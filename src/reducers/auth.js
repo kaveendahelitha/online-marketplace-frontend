@@ -1,75 +1,52 @@
 import {
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    USER_LOADED_SUCCESS,
-    USER_LOADED_FAIL,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL,
     AUTHENTICATED_SUCCESS,
     AUTHENTICATED_FAIL,
-    ACTIVATION_SUCCESS,
-    ACTIVATION_FAIL,
-    LOGOUT
-}from '../actions/type';
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL
+} from '../actions/type';
 
 const initialState = {
-    access: localStorage.getItem('access'),
-    refresh: localStorage.getItem('refresh'),
-    isAuthenticated: null,
-    user: null
+    isAuthenticated: null
 };
 
-export default function auth(state = initialState, action) {
+export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch(type) {
-
         case AUTHENTICATED_SUCCESS:
+        case AUTHENTICATED_FAIL:
+            return {
+                ...state,
+                isAuthenticated: payload
+            }
+        case REGISTER_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: false
+            }
+        case LOGIN_SUCCESS:
             return {
                 ...state,
                 isAuthenticated: true
             }
-        case AUTHENTICATED_FAIL:
+        case LOGOUT_SUCCESS:
+        case DELETE_USER_SUCCESS:
             return {
                 ...state,
                 isAuthenticated: false
-            }    
-        case LOGIN_SUCCESS:
-            localStorage.setItem('access', payload.access);
-            return {
-                ...state,
-                isAuthenticated: true,
-                access: payload.access,
-                refresh: payload.refresh
             }
-        case USER_LOADED_SUCCESS:
-            return{
-            }
-        case USER_LOADED_FAIL:
-            return {
-                   
-                } 
+        case REGISTER_FAIL:
         case LOGIN_FAIL:
-            localStorage.removeItem('access');
-            localStorage.removeItem('refresh');
-            return {
-
-              }
-        case ACTIVATION_SUCCESS:
-        case ACTIVATION_FAIL:
-            return {
-                ...state
-            }        
-        case LOGOUT:
-            localStorage.removeItem('access');
-            localStorage.removeItem('refresh');
-                return {
-                    ...state,
-                    access: null,
-                    refresh: null,
-                    isAuthenticated: false,
-                    user: null
-                }       
+        case LOGOUT_FAIL:
+        case DELETE_USER_FAIL:
+            return state
         default:
-            return state;    
-                
-    }
+            return state
+    };
 };

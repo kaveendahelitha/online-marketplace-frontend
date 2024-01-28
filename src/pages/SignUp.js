@@ -1,97 +1,90 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import {Navigate, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { register } from '../actions/auth';
+import CSRFToken from '../components/CSRFToken';
 
-const SignUp = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-white">
-      <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <form className="space-y-6">
-          <h5 className="text-xl font-medium text-gray-900 dark:text-white">
-            Sign up for our platform
-          </h5>
-          <div>
-            <label
-              htmlFor="firstName"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              First Name
-            </label>
-            <input
-              type="text"
-              name="firstName"
-              id="firstName"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              placeholder="Your First Name"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="lastName"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Last Name
-            </label>
-            <input
-              type="text"
-              name="lastName"
-              id="lastName"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              placeholder="Your Last Name"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Your email
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              placeholder="name@company.com"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Your password
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="••••••••"
-              minLength="6"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              required
-            />
-          </div>
+const Register = ({ register, isAuthenticated }) => {
+    const [formData, setFormData] = useState({
+        username: '',
+        password: '',
+        re_password: ''
+    });
+    const [accountCreated, setAccountCreated] = useState(false);
 
-          <button
-            type="submit"
-            className="w-full text-white bg-custom-orange hover:bg-amber-100 hover:text focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          >
-            Sign Up
-          </button>
-          <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Already registered?{' '}
-            <Link to="/login" className="text-blue-700 hover:underline dark:text-blue-500">
-              Log in
-            </Link>
-          </div>
-        
-        </form>
-      </div>
-    </div>
-  );
+    const { username, password, re_password } = formData;
+
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        if (password === re_password) {
+            register(username, password, re_password);
+            setAccountCreated(true);
+        }
+    };
+
+    if (isAuthenticated)
+        return <Navigate to='/dashboard' />;
+    else if (accountCreated)
+        return <Navigate to='/login' />;
+
+    return (
+        <div className='container mx-auto mt-5'>
+            <h1 className='text-3xl font-bold'>Register for an Account</h1>
+            <p>Create an account with our Session Auth application</p>
+            <form onSubmit={e => onSubmit(e)} className='mt-5'>
+                <CSRFToken />
+                <div className='mb-4'>
+                    <label className='block text-gray-700 text-sm font-bold mb-2'>Username:</label>
+                    <input
+                        className='border rounded w-full py-2 px-3'
+                        type='text'
+                        placeholder='Username*'
+                        name='username'
+                        onChange={e => onChange(e)}
+                        value={username}
+                        required
+                    />
+                </div>
+                <div className='mb-4'>
+                    <label className='block text-gray-700 text-sm font-bold mb-2'>Password:</label>
+                    <input
+                        className='border rounded w-full py-2 px-3'
+                        type='password'
+                        placeholder='Password*'
+                        name='password'
+                        onChange={e => onChange(e)}
+                        value={password}
+                        minLength='6'
+                        required
+                    />
+                </div>
+                <div className='mb-4'>
+                    <label className='block text-gray-700 text-sm font-bold mb-2'>Confirm Password:</label>
+                    <input
+                        className='border rounded w-full py-2 px-3'
+                        type='password'
+                        placeholder='Confirm Password*'
+                        name='re_password'
+                        onChange={e => onChange(e)}
+                        value={re_password}
+                        minLength='6'
+                        required
+                    />
+                </div>
+                <button className='bg-blue-500 text-white py-2 px-4 rounded' type='submit'>Register</button>
+            </form>
+            <p className='mt-3 text-gray-600'>
+                Already have an Account? <Link to='/login' className='text-blue-500'>Sign In</Link>
+            </p>
+        </div>
+    );
 };
 
-export default SignUp;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { register })(Register);

@@ -1,46 +1,50 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import Home from './pages/Home';
-import ProductList from './pages/ProductList';
-import Cart from './pages/Cart';
+//import ProductList from './pages/ProductList';
+//import Cart from './pages/Cart';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-import UserProfile from './pages/UserProfile';
+import Dashboard from './pages/UserDashboard';
 //import Navbar from './components/Navbar';
 //import Footer from './components/Footer';
 import AdminDashboard from './pages/AdminDashboard';
-import UserDashboard from './pages/UserDashboard';
-import ProductDetails from './pages/ProductDetails';
+//import ProductDetails from './pages/ProductDetails';
 
-import { Provider } from 'react-redux';
+//import Activate from './pages/Activate';
+//import ResetPassword from './pages/ResetPassword';
+//import ResetPasswordConfirm from './pages/ResetPasswordConfirm';
+
 import store from './store';
 
 import Layout from './hocs/Layout';
+import { Provider } from 'react-redux';
+
+//import PrivateRoute from './hocs/PrivateRoute';
+
+
+
+
+
+
+
 
 const App = () => {
+
   return (
     <Provider store={store}>
-       <Router>
-        <Layout>
-         <div>
-           <Routes>
-                <Route path="/" element={<Home />}/>
-                <Route path="/products-list" element={<ProductList />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/admin" element={<AdminDashboard />} />
-                <Route path="/user" element={<UserDashboard />} />
-                <Route path="/products-details" element={<ProductDetails/>} />
-                {/*<Route path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm/>} />
-                <Route path='/activate/:uid/:token' celement={<Activate/>} /> */}
-                <Route path="/userprofile" element={<UserProfile />} />
-           </Routes>
-         </div>
-         </Layout>
-       </Router>
-    </Provider>
+  <Router>
+    <Routes>
+      <Route path="/" element={<Layout><Home /></Layout>} />
+      <Route path="/login" element={<Layout><Login /></Layout>} />
+      <Route path="/signup" element={<Layout><SignUp /></Layout>} />
+      <Route path='/dashboard' element={<Layout><Dashboard /></Layout>} />
+      <Route path='/admindashboard' element={<AdminDashboard />} />
+    </Routes>
+  </Router>
+</Provider>
   );
 };
+
 
 export default App;

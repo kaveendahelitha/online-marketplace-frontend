@@ -6,24 +6,19 @@ import {
   Bars3Icon,
   ChartPieIcon,
   CursorArrowRaysIcon,
-  FingerPrintIcon,
   SquaresPlusIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 //drop down list
 const products = [
   { name: 'Category 1', description: 'Name 1', href: '/', icon: ChartPieIcon },
   { name: 'Category 2', description: 'Name 2', href: '/products-list', icon: CursorArrowRaysIcon },
-  { name: 'Category 3', description: 'Name 3', href: '#', icon: FingerPrintIcon },
   { name: 'Category 4', description: 'Name 4', href: '/login', icon: SquaresPlusIcon },
   { name: 'Category 5', description: 'Name 5', href: '/signup', icon: ArrowPathIcon },
 ]
-const callsToAction = [
-  { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-  { name: 'Contact sales', href: '#', icon: PhoneIcon },
-]
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -102,13 +97,7 @@ export default function Navbar() {
             about-us
           </a>
         </Popover.Group>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <button className="bg-custom-orange hover:bg-amber-100 text-white font-semibold py-2 px-4 rounded transition duration-300">
-            <a href="/login" className="text-sm leading-6 text-gray-900">
-              Log in 
-            </a>
-          </button> 
-        </div>
+        
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10" />

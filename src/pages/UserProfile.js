@@ -1,13 +1,12 @@
 import React from 'react';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
-import Navbar from'../components/Navbar';
-import Footer from '../components/Footer';
 
 
-function UserProfile() {
+
+
+const UserProfile = () => {
   return (
-    <>
-    <Navbar/>
+   
   
     <div className="bg-white py-24 sm:py-32">
       <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
@@ -40,7 +39,9 @@ function UserProfile() {
 
                         <button
                           type="button"
-                          className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-blue-300 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                          className="rounded-md bg-blue-600 px-2.5 
+                          py-1.5 text-sm font-semibold text-white shadow-sm 
+                          ring-1 ring-inset ring-blue-300 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                         >
                           Change
                         </button>
@@ -184,9 +185,11 @@ function UserProfile() {
       </div>
     </div>
     </div>
-    < Footer/>
-    </>
+   
+    
   );
-}
+
+
+};
 
 export default UserProfile;

@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react';
-import Navbar from '../components/Navbar';
+import React, { useEffect , Fragment } from 'react';
+import Navbar from '../components/NavbarDefault';
 import { connect } from 'react-redux';
-import { checkAuthenticated, load_user } from '../actions/auth';
+import { checkAuthenticated } from '../actions/auth';
+import { load_user } from '../actions/Profile';
 
-const Layout = ({ checkAuthenticated, load_user, children }) => {
+
+const Layout = ({ children, checkAuthenticated, load_user }) => {
     useEffect(() => {
         checkAuthenticated();
         load_user();
-    }, []);
+    }, [checkAuthenticated,load_user]);
 
     return (
-        <div>
-            <Navbar />
-            {children}
-        </div>
+        <Fragment>
+        <Navbar />
+          {children}
+        </Fragment>
     );
 };
 
