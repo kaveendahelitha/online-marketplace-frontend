@@ -1,5 +1,7 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
+import axios from 'axios';
+
 //icon import
 import {
   ArrowPathIcon,
@@ -11,13 +13,19 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
+
+
+
+
+
+
 //drop down list
-const products = [
-  { name: 'Category 1', description: 'Name 1', href: '/', icon: ChartPieIcon },
-  { name: 'Category 2', description: 'Name 2', href: '/products-list', icon: CursorArrowRaysIcon },
-  { name: 'Category 4', description: 'Name 4', href: '/login', icon: SquaresPlusIcon },
-  { name: 'Category 5', description: 'Name 5', href: '/signup', icon: ArrowPathIcon },
-]
+//const products = [
+//  { name: 'Category 1', description: 'Name 1', href: '/', icon: ChartPieIcon },
+//  { name: 'Category 2', description: 'Name 2', href: '/products-list', icon: CursorArrowRaysIcon },
+//  { name: 'Category 4', description: 'Name 4', href: '/login', icon: SquaresPlusIcon },
+//  { name: 'Category 5', description: 'Name 5', href: '/signup', icon: ArrowPathIcon },
+//]
 
 
 function classNames(...classes) {
@@ -26,6 +34,23 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [categoryview, setCategoryNames] = useState([]);
+
+  const getCategoryName = async () => {
+    const response = await axios.get('http://localhost:8000/api/categoryview/');
+    setCategoryNames(response.data);
+  };
+  useEffect(() => {
+    getCategoryName();
+  }, []);
+
+  const products = categoryview.map((categoryItem) => ({
+    name: categoryItem.category_name,
+    description: 'Name 1',
+    href: '/',
+    icon: ChartPieIcon,
+  }));
+
 
   return (
     <header className="bg-white">
@@ -33,7 +58,7 @@ export default function Navbar() {
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+            
           </a>
         </div>
         <div className="flex lg:hidden">
