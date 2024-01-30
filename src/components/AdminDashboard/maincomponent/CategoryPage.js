@@ -5,6 +5,8 @@ import Modal from 'react-modal';
 const CategoryForm = () => {
   const [categoryview, setCategoryNames] = useState([]);
   const [categoryName, setCategoryName] = useState('');
+
+  
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -44,8 +46,8 @@ const CategoryForm = () => {
     }
   };
 
-  const handleDeleteClick = (categoryId) => {
-    setSelectedCategory(categoryId);
+  const handleDeleteClick = (category) => {
+    setSelectedCategory(category);
     setDeleteModalOpen(true);
   };
 
@@ -242,7 +244,7 @@ const CategoryForm = () => {
                 <td className="p-2">
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                    onClick={() => handleDeleteClick(category.id)}
+                    onClick={() => handleDeleteClick(category)}
                   >
                     Delete
                   </button>

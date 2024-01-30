@@ -9,19 +9,19 @@ const AdminSidebar = ({ onButtonClick }) => {
       className="w-full block mb-2 border border-gray-400 rounded-md p-2 hover:bg-gray-300"
       onClick={() => onButtonClick('category')}
     >
-      Category
+       Category
     </button>
     <button
       className="w-full block mb-2 border border-gray-400 rounded-md p-2 hover:bg-gray-300"
       onClick={() => onButtonClick('item')}
     >
-      Item
+      Add Product
     </button>
     <button
       className="w-full block mb-2 border border-gray-400 rounded-md p-2 hover:bg-gray-300"
       onClick={() => onButtonClick('customize')}
     >
-      Customize
+      Customize Product
     </button>
   </div>
   );
